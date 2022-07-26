@@ -1,17 +1,17 @@
 variable "sqlserver_version" {
   type        = string
-  default     = "13"
+  default     = "13.00.5850.14.v1"
   description = "SqlServer Engine Version"
 }
 
 variable "instance_class" {
   type    = string
-  default = "db.t3.micro"
+  default = "db.t3.xlarge"
 }
 
 variable "allocated_storage" {
   type        = number
-  default     = 10
+  default     = 20
   description = "Allocated storage in GB"
 }
 
@@ -23,7 +23,7 @@ variable "backup_retention_period" {
 
 variable "high_availability" {
   type        = bool
-  default     = true
+  default     = false
   description = <<EOF
 Enables high availability and failover support on the database instance.
 By default, this is enabled to ensure reliability.

@@ -15,6 +15,7 @@ resource "aws_db_instance" "this" {
   vpc_security_group_ids      = [aws_security_group.this.id]
   tags                        = local.tags
   publicly_accessible         = var.enable_public_access
+  license_model               = "license-included"
 
   username = replace(data.ns_workspace.this.block_ref, "-", "_")
   password = random_password.this.result
@@ -51,7 +52,8 @@ locals {
 
 resource "aws_db_parameter_group" "this" {
   name        = local.param_group_name
-  family      = "sqlserver${var.sqlserver_version}"
+  // family      = "sqlserver-se-${var.sqlserver_version}"
+  family      = "sqlserver-se-13.0"
   tags        = local.tags
   description = "SqlServer for ${local.block_name} (${local.env_name})"
 
