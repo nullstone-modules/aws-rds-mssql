@@ -3,7 +3,7 @@ resource "aws_db_instance" "this" {
 
   db_subnet_group_name        = aws_db_subnet_group.this.name
   parameter_group_name        = aws_db_parameter_group.this.name
-  engine                      = "sqlserver-ee"
+  engine                      = "sqlserver-se"
   engine_version              = var.sqlserver_version
   allow_major_version_upgrade = true
   instance_class              = var.instance_class
