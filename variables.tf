@@ -1,7 +1,17 @@
+variable "sqlserver_edition" {
+  type = string
+  default = "se"
+  description = <<EOF
+Choose the SQL Server edition to create. Available options are ex (Express), web (Web), se (Standard), and ee (Enterprise).
+EOF
+}
+
 variable "sqlserver_version" {
-  type        = string
-  default     = "13.00.5850.14.v1"
-  description = "SqlServer Engine Version"
+  type        = number
+  default     = 15
+  description = <<EOF
+Choose the major version of the SQL Server engine. Available options are 12 (2014), 13 (2016), 14 (2017), and 15 (2019).
+EOF
 }
 
 variable "instance_class" {

@@ -3,8 +3,8 @@ resource "aws_db_instance" "this" {
 
   db_subnet_group_name        = aws_db_subnet_group.this.name
   parameter_group_name        = aws_db_parameter_group.this.name
-  engine                      = "sqlserver-se"
-  engine_version              = var.sqlserver_version
+  engine                      = local.engine
+  engine_version              = local.versions_map[var.sqlserver_version]
   allow_major_version_upgrade = true
   instance_class              = var.instance_class
   multi_az                    = var.high_availability
@@ -41,19 +41,17 @@ resource "aws_db_subnet_group" "this" {
 }
 
 locals {
+  engine                = "sqlserver-${var.sqlserver_edition}"
+  major_version         = "${var.sqlserver_version}.0"
   enforce_ssl_parameter = var.enforce_ssl ? tomap({ "rds.force_ssl" = 1 }) : tomap({})
   db_parameters         = merge(local.enforce_ssl_parameter)
-}
-
-locals {
   // Can only contain alphanumeric and hypen characters
-  param_group_name = "${local.resource_name}-sqlserver${replace(var.sqlserver_version, ".", "-")}"
+  param_group_name      = "${local.resource_name}-sqlserver${replace(var.sqlserver_version, ".", "-")}"
 }
 
 resource "aws_db_parameter_group" "this" {
   name        = local.param_group_name
-  // family      = "sqlserver-se-${var.sqlserver_version}"
-  family      = "sqlserver-se-13.0"
+  family      = "sqlserver-${var.sqlserver_edition}-${local.major_version}"
   tags        = local.tags
   description = "SqlServer for ${local.block_name} (${local.env_name})"
 

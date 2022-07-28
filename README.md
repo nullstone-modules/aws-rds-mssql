@@ -4,10 +4,14 @@ Nullstone Block standing up AWS RDS SQL Server
 
 ## Inputs
 
-- `sqlserver_version: string` - SqlServer Engine Version - default: 12
+- `sqlserver_edition: string` - SqlServer Edition to create - default: se
+- `sqlserver_version: string` - SqlServer Engine Version - default: 15
 - `instance_class: string` - SqlServer Instance Class - default: db.t3.micro
 - `allocated_storage: number` - Allocated storage in GB - default: 10
 - `backup_retention_period: number` - The days to retain backups - default: 5
+- `high_availability` - Provide failover support across multiple availabilty zones - default: false
+- `enforce_ssl` - Set to true to require an SSL connection - default: false
+- `enable_public_access` - Make this instance available outside the private network - default: false
 
 ## Outputs
 
